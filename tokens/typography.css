@@ -3,7 +3,6 @@
 :root{
   --font-sans:'SuisseIntl',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --font-mono:'RobotoMono',ui-monospace,monospace;
-  --font-legacy:'PPNeueMontreal',sans-serif;
   --text-caption:12px;--text-body:14px;--text-body-lg:16px;--text-title:20px;--text-heading:24px;--text-heading-lg:28px;--text-display:36px;--text-display-lg:48px;
   --leading-tight:1.1;--leading-snug:1.3;--leading-normal:1.5;
   --weight-light:300;--weight-regular:400;--weight-medium:500;--weight-semibold:600;
