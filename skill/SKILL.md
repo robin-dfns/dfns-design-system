@@ -7,6 +7,13 @@ in the data files, not in your judgment.
 **Read this file before writing anything.** If you read only this file, you can
 still produce a correct slide.
 
+**Use only what is in this pack.** Every colour, size, layout, figure and quote
+you need is in `data/`. Do not fetch the DFNS design system, the website, or
+anything else to fill a gap — the design system is this pack's *upstream*, not a
+second source, and a value read from one while the rest comes from the other is
+how a deck ends up saying two different things. If something you need is genuinely
+missing here, say so and stop; do not substitute.
+
 ---
 
 ## The flow

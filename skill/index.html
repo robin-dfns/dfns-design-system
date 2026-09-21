@@ -20,14 +20,7 @@
   .wrap{max-width:900px;margin:0 auto;padding:72px 32px 110px}
   @media(max-width:640px){.wrap{padding:44px 20px 72px}}
 
-  .eyebrow{display:inline-flex;align-items:center;gap:4px;border-radius:6px;
-    padding:6px 9px;background:rgba(92,235,116,.15);color:#056F15;
-    font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
-  .eyebrow svg{transform:rotate(90deg);animation:blink 2s step-end infinite}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-  @media(prefers-reduced-motion:reduce){.eyebrow svg{animation:none}}
-
-  h1{margin-top:22px;font-size:clamp(32px,4.5vw,48px);font-weight:300;
+  h1{font-size:clamp(32px,4.5vw,48px);font-weight:300;
      line-height:1.1;letter-spacing:0}
   h1 .light{color:var(--purple)}
   h1 .emphasis{font-weight:400;color:var(--ink)}
@@ -79,11 +72,6 @@
 </head>
 <body>
 <div class="wrap">
-
-  <span class="eyebrow">
-    <svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><polygon points="4,0 8,2.25 8,6.75 4,9 0,6.75 0,2.25" fill="currentColor"/></svg>
-    For the sales team
-  </span>
 
   <h1><span class="light">Make a DFNS slide</span><br><span class="emphasis">without a designer.</span></h1>
 
@@ -149,8 +137,14 @@
   words and figures that do not match the record. Paste the deck's text and ask it to
   run the audit — <a href="CHECK.md">CHECK.md</a> has the procedure.</p>
 
+  <h2>Where this comes from</h2>
+  <p>The pack is built from the <a href="../">DFNS Design System</a> and measured
+  against the company deck. The design system is its <strong>upstream, not a second
+  source</strong>: don't hand the AI both. If the two ever disagree, the pack is the
+  one that has gone stale, and it gets regenerated.</p>
+
   <footer>
-    <span>DFNS Design System</span>
+    <span><a href="../">DFNS Design System</a></span>
     <span>Pack v2026.09.21</span>
     <span><a href="SKILL.md">SKILL.md</a></span>
     <span><a href="CHECK.md">CHECK.md</a></span>
