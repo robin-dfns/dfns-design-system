@@ -1,0 +1,31 @@
+{
+  "archetype": "contrast-list",
+  "eyebrow": "The ledger is changing",
+  "title": [
+    "Your core speaks ledgers.",
+    "The new core speaks blockchains."
+  ],
+  "lead": "Every bank and fintech runs on a core, the system of record that holds accounts, moves money, enforces rules, and survives audits. Those systems were designed in the 70s and 80s, and their architecture remains the same.",
+  "rows": [
+    {
+      "old": "Messages about money",
+      "new": "Instruction and settlement collapse into one atomic event."
+    },
+    {
+      "old": "Reconciliation teams",
+      "new": "Break queues and confirmation matching become system properties."
+    },
+    {
+      "old": "T+1 settlement",
+      "new": "Capital that waited two days can move the same afternoon."
+    },
+    {
+      "old": "Prefunded nostros",
+      "new": "The float dies. 24/7/365 liquidity."
+    },
+    {
+      "old": "Core release cycles",
+      "new": "Launching a payout flow doesn't require an 18-month change request."
+    }
+  ]
+}

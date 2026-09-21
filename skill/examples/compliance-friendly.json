@@ -1,0 +1,27 @@
+{
+  "archetype": "cards-2x2",
+  "eyebrow": "Compliance friendly",
+  "title": [
+    "Screening after broadcast is forensics,",
+    "but before it's compliance"
+  ],
+  "lead": "A blockchain transaction cannot be recalled. So DFNS puts compliance before the point of no return. Every check runs in the transaction path, pre-signature. What fails never gets signed; what signs is already clean.",
+  "cards": [
+    {
+      "title": "Pre-signature screening",
+      "body": "AML/KYT via Chainalysis, Elliptic, Sumsub, Global Ledger, or Scorechain, evaluated before signing, not investigated after settlement."
+    },
+    {
+      "title": "Travel Rule, built in",
+      "body": "Originator and beneficiary data exchanged through Notabene and partners as part of the transfer flow."
+    },
+    {
+      "title": "Validation gates",
+      "body": "Independent pre-signature checkpoints where your own systems or third parties can veto a transaction before it exists."
+    },
+    {
+      "title": "Cryptographic audit trails",
+      "body": "Every request, approval, and signature logged as a tamper-evident record; exportable, verifiable, regulator-legible."
+    }
+  ]
+}

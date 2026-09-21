@@ -1,0 +1,9 @@
+{
+  "archetype": "statement",
+  "ground": "content",
+  "title": ["Every single use case you just saw", "needs a wallet*."],
+  "footnote": {
+    "text": "* The question is what type of wallet? Learn more:",
+    "link": "dfns.co/article/the-wallet-service-guide"
+  }
+}

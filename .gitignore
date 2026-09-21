@@ -9,3 +9,8 @@ assets/img/.cache/
 # This repo is public; every slide of the introduction deck is marked
 # "CONFIDENTIAL AND LEGALLY PROTECTED BY DFNS".
 assets/Guidelines/*.pdf
+
+# Slide skill — regenerated raster caches
+skill/assets/*.cache.png
+skill/examples/*.jpg
+skill/examples/*.svg

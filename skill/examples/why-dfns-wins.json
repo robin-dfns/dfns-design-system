@@ -1,0 +1,47 @@
+{
+  "archetype": "text-table",
+  "eyebrow": "Why DFNS wins",
+  "title": [
+    "Six reasons top tier institutions",
+    "choose DFNS."
+  ],
+  "headers": [
+    "The capability",
+    "Why it matters",
+    "What it changes"
+  ],
+  "rows": [
+    {
+      "title": "Programmable to the core",
+      "cells": [
+        "Every action is an API, every control is code, every workflow composable.",
+        "Strong developer tooling is what gives your team velocity and assurance.",
+        "Own the UI, keep the customer relationship, delegate the core infrastructure."
+      ]
+    },
+    {
+      "title": "Deploy anywhere, re-architect never",
+      "cells": [
+        "SaaS, hybrid, or fully self-hosted on one platform, with MPC, HSM, TEE or offline key models underneath.",
+        "Custody, key, deployment models and jurisdictions are switchable configuration.",
+        "Future-proof operations, built atop infrastructure that adjusts to changing regulation."
+      ]
+    },
+    {
+      "title": "One platform, not a toolchain",
+      "cells": [
+        "Every component runs as a unified operating system, not stitched-together point tools.",
+        "Fragmenting custody, treasury, trading and compliance is how risk and cost creep in.",
+        "One control plane, one audit trail, one integration. Fewer seams, fewer places to break."
+      ]
+    },
+    {
+      "title": "Cryptography you can inspect",
+      "cells": [
+        "MPC libraries built in-house, independently audited, open-sourced to the Linux Foundation.",
+        "You verify what secures your assets instead of trusting a licensed black box.",
+        "Your auditors and regulators examine the actual code path protecting client keys."
+      ]
+    }
+  ]
+}

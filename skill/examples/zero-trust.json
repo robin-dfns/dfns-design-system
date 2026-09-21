@@ -1,0 +1,25 @@
+{
+  "archetype": "cards-row",
+  "ground": "content",
+  "eyebrow": "Zero trust security",
+  "title": ["Trust nothing. Verify everything.", "Us too."],
+  "lead": "At DFNS, zero trust security is an architectural constraint with a precise meaning. No statement is believed because of who said it, every request, approval, and signature must carry its own cryptographic proof.",
+  "cards": [
+    { "icon": "finger-print", "title": "Every request is signed",
+      "body": "No session cookies. A passkey signs each action at origin, intercepting traffic earns an attacker nothing." },
+    { "icon": "check-badge", "title": "Every approval is proof",
+      "body": "Quorum decisions are cryptographic artifacts, committed and verifiable, not rows in a database an admin could edit." },
+    { "icon": "key", "title": "No key is ever exposed",
+      "body": "Key material is born sharded and stays sharded; there is no moment, on any machine, where the complete key exists to steal." },
+    { "icon": "shield-check", "title": "Signers believe no one",
+      "body": "The signing layer independently re-verifies the entire chain of intent. A fully compromised application layer still cannot sign." },
+    { "icon": "viewfinder-circle", "title": "DFNS is inside the threat model",
+      "body": "The system is engineered so that we cannot move your assets; our own staff face the same gauntlet as everyone else." }
+  ],
+  "strip": {
+    "variant": "quote",
+    "author": "Thibault de Lachèze-Murel",
+    "role": "CISO, DFNS",
+    "text": "“We built DFNS assuming that one day, someone we trust, an employee, a vendor, even ourselves, would become the attacker. Everything follows from that assumption.”"
+  }
+}

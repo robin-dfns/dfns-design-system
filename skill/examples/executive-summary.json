@@ -1,0 +1,31 @@
+{
+  "archetype": "columns-ruled",
+  "eyebrow": "Executive summary",
+  "title": [
+    "We are the core banking platform",
+    "for onchain finance"
+  ],
+  "lead": "Your current core banking system holds accounts on ledgers, moves money, enforces the rules, and proves it all to auditors. DFNS is that system, rebuilt for blockchains and token-first operations.",
+  "columns": [
+    {
+      "icon": "user-group",
+      "title": "Who we are",
+      "body": "Onchain core banking. Blockchain middleware. The orchestration layer between classic and digital assets, run by people who built the old rails and engineered the new ones."
+    },
+    {
+      "icon": "cube",
+      "title": "What we do",
+      "body": "A series of modules to hold, move, control, and prove onchain workflows, from wallets to nodes, transactions, treasury, issuance, policy, governance, workflows, auth, certs, keys, and logs."
+    },
+    {
+      "icon": "star",
+      "title": "Why it's different",
+      "body": "Hundreds of fintechs and institutions, from day-one startups to IBM and Standard Chartered. Banks, brokers, payment services, asset managers, clearing houses, and the public sector."
+    },
+    {
+      "icon": "building-library",
+      "title": "Who runs it",
+      "body": "Programmable, interoperable, modular, and built for security and scalability. Powered by our code and certified cryptography. Deliberately tech-only so we never compete with you."
+    }
+  ]
+}

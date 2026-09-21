@@ -1,0 +1,188 @@
+{
+  "meta": {
+    "name": "DFNS Slide Facts",
+    "version": "2026.09.20",
+    "seededFrom": "Figma 📚 MASTER LIBRARY — page Company Deck",
+    "editor": "Robin Defilhes — single editor",
+    "stampOnEverySlide": "facts v2026.09.20"
+  },
+  "rules": {
+    "noInvention": "A generator may not state a figure, a claim or a quote that is absent from this file — not from memory, not from the web, not by inference. If a slide needs a fact that is not here, render the literal marker ⟦FACT NEEDED: <what>⟧ in place of it and tell the user.",
+    "noLocalFix": "If a figure here is wrong, it is corrected here, not in a slide. A slide that disagrees with this file is the slide that is wrong.",
+    "quoteIntegrity": "Third-party quotes are reproduced verbatim. They are never trimmed, paraphrased or corrected for house style — banned words inside a quote are the speaker's, not ours.",
+    "staleness": "Any entry whose asof is more than 6 months old renders with the marker ⟦STALE⟧ next to it."
+  },
+  "figures": {
+    "assetsSecured": {
+      "value": "$200B+",
+      "label": "assets secured",
+      "asof": "2026-09-20",
+      "verified": true,
+      "owner": "Robin Defilhes",
+      "note": "Confirmed by Robin 2026-09-20. www.dfns.co still shows $100B+ — the website is the thing to correct."
+    },
+    "monthlyVolume": {
+      "value": "$10B+",
+      "label": "monthly volume",
+      "asof": "2026-09-20",
+      "verified": true,
+      "owner": "Robin Defilhes"
+    },
+    "wallets": {
+      "value": "20M+",
+      "label": "wallets",
+      "asof": "2026-09-20",
+      "verified": true,
+      "owner": "Robin Defilhes"
+    },
+    "integrations": {
+      "value": "100+",
+      "label": "integrations",
+      "asof": "2026-09-20",
+      "verified": true,
+      "owner": "Robin Defilhes"
+    },
+    "blockchains": {
+      "value": "100+",
+      "label": "blockchains",
+      "asof": "2026-09-20",
+      "verified": true,
+      "owner": "Robin Defilhes"
+    },
+    "breaches": {
+      "value": "0",
+      "label": "breaches",
+      "asof": "2026-09-20",
+      "verified": true,
+      "owner": "Robin Defilhes"
+    },
+    "uptime": {
+      "value": "99.997%",
+      "label": "historical uptime",
+      "asof": "2026-09-20",
+      "verified": true,
+      "owner": "Robin Defilhes",
+      "qualifier": "since 2022"
+    },
+    "clients": {
+      "value": "500+",
+      "label": "fintech and institutional clients",
+      "asof": "2026-09-20",
+      "verified": true,
+      "owner": "Robin Defilhes",
+      "note": "Confirmed by Robin 2026-09-20. www.dfns.co still shows 400+."
+    },
+    "stablecoinShare": {
+      "value": "~1%",
+      "label": "of the global stablecoin volume",
+      "asof": "2026-09-20",
+      "verified": true,
+      "owner": "Robin Defilhes"
+    },
+    "g2Rating": {
+      "value": "4.8 / 5",
+      "label": "across 60+ verified reviews on G2",
+      "asof": "2026-09-20",
+      "verified": true,
+      "owner": "Robin Defilhes",
+      "note": "The source must be named. 'Customers rate DFNS #1' is only usable with G2 attached."
+    }
+  },
+  "lines": {
+    "note": "Canonical sentences. Present in the deck, absent from the website. Reuse verbatim rather than paraphrasing — they are brand assets.",
+    "items": [
+      "We are the core banking platform for onchain finance.",
+      "Trust nothing. Verify everything. Us too.",
+      "Start on SaaS. Scale to sovereign. Never re-architect.",
+      "Key material is born sharded and stays sharded.",
+      "DFNS is inside the threat model.",
+      "Deliberately tech-only so we never compete with you.",
+      "Every network is a first-class citizen.",
+      "New chains land in weeks — not quarters.",
+      "We integrate. You orchestrate.",
+      "Eight steps. No exception.",
+      "No single point of failure. Including us.",
+      "The exit is built in. That's why the entrance is safe."
+    ]
+  },
+  "quotes": {
+    "note": "Cleared 2026-09-21: all five are public. A public quote is cleared as published — verbatim, with attribution. It is not licence to trim or re-word it.",
+    "items": [
+      {
+        "id": "keyrails",
+        "text": "Best I have seen. Great tech that just works.",
+        "author": "Berhan Kongel",
+        "role": "CEO",
+        "company": "Keyrails",
+        "signoff": "cleared — published publicly; reuse verbatim with attribution"
+      },
+      {
+        "id": "stripe",
+        "text": "Not only did we weather the incident, we came out of it with a healthier, faster, and more reliable system than a week earlier. DFNS was a big part of that.",
+        "author": "Ryan Fogle",
+        "role": "Principal Engineer",
+        "company": "Stripe",
+        "signoff": "cleared — published publicly; reuse verbatim with attribution"
+      },
+      {
+        "id": "zodia-scb",
+        "text": "DFNS excels in providing a wallet management system that is quick, scalable, and simple to implement, even for lesser-known or pre-launch blockchains. They free us from transaction building, offering scalable, easy-to-implement solutions that simplify our project delivery.",
+        "author": "Anoosh Arevshatian",
+        "role": "CPO",
+        "company": "Zodia Custody (Standard Chartered)",
+        "signoff": "cleared — published publicly; reuse verbatim with attribution"
+      },
+      {
+        "id": "bcg",
+        "text": "The real breakthrough will come when real-world assets are tokenized and could serve as instant collateral for secured lending.",
+        "author": "Saurabh Tripathi",
+        "role": "Managing Director & Senior Partner, Global FI Lead",
+        "company": "BCG",
+        "signoff": "cleared — published publicly; reuse verbatim with attribution"
+      },
+      {
+        "id": "dfns-ciso",
+        "text": "We built DFNS assuming that one day, someone we trust, an employee, a vendor, even ourselves, would become the attacker. Everything follows from that assumption.",
+        "author": "Thibault de Lachèze-Murel",
+        "role": "CISO",
+        "company": "DFNS",
+        "signoff": "cleared — published publicly; reuse verbatim with attribution"
+      }
+    ]
+  },
+  "confidentiality": {
+    "footer": "This document is confidential and legally protected by DFNS",
+    "note": "Rendered by the chrome on every slide. Not editable."
+  },
+  "openItems": [
+    {
+      "what": "One referent per domain",
+      "why": "The editor holds the pen but does not set pricing, validate a security claim or approve a customer quote. Without a named referent per domain and one channel for corrections, this file goes wrong quietly — and a source everyone trusts that happens to be wrong is worse than no source at all.",
+      "domains": [
+        "Company",
+        "Product",
+        "Security",
+        "Customer proof",
+        "Pricing"
+      ],
+      "status": "assigned — single validator",
+      "assignedTo": "Robin Defilhes, for all five domains",
+      "risk": "A single validator across Company, Product, Security, Customer proof and Pricing is the bottleneck the internal pitch named: one person cannot rule on pricing, a security claim and a customer quote with equal authority. Accepted deliberately on 2026-09-21. Revisit when the file starts lagging reality rather than when someone complains."
+    },
+    {
+      "what": "Pricing facts",
+      "why": "No pricing figure is recorded here. Any slide that needs one renders ⟦FACT NEEDED⟧ until a referent supplies and signs off the numbers.",
+      "status": "empty"
+    },
+    {
+      "what": "Legal disclaimers",
+      "why": "The deck carries no standing disclaimer beyond the confidentiality footer. If regulated-market slides need one, it belongs here.",
+      "status": "empty"
+    },
+    {
+      "what": "Website correction",
+      "why": "www.dfns.co shows $100B+ on home, governance-engine, key-management and wallet-as-a-service, 400+ in the home stat band, and $0B+ still renders on /key-management after full JS execution. Repo Dfns/dfns-website — outside this skill.",
+      "status": "open"
+    }
+  ]
+}

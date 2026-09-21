@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slide skill</title>
+<meta name="description" content="Make a brand-exact DFNS slide from any AI model. One JSON spec in, a 1920×1080 JPG out.">
+<link rel="stylesheet" href="../tokens/index.css">
+<style>
+  :root{
+    --ink:#363A5B; --ink-2:#575C7B; --ink-3:#AEB1C9;
+    --purple:#442599; --purple-800:#2D1866; --purple-900:#170C33;
+    --line:#E0E3F0; --rule:#E3E4EB; --ground:#F0F1F4; --card:#FFFFFF;
+    --mono:'Roboto Mono',ui-monospace,Menlo,monospace;
+    --sans:'Suisse Intl',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:900px;margin:0 auto;padding:72px 32px 110px}
+  @media(max-width:640px){.wrap{padding:44px 20px 72px}}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:4px;border-radius:6px;
+    padding:6px 9px;background:rgba(92,235,116,.15);color:#056F15;
+    font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+  .eyebrow svg{transform:rotate(90deg);animation:blink 2s step-end infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  @media(prefers-reduced-motion:reduce){.eyebrow svg{animation:none}}
+
+  h1{margin-top:22px;font-size:clamp(32px,4.5vw,48px);font-weight:300;
+     line-height:1.1;letter-spacing:0}
+  h1 .light{color:var(--purple)}
+  h1 .emphasis{font-weight:400;color:var(--ink)}
+  .lede{margin-top:20px;max-width:62ch;font-size:18px;color:var(--ink-2)}
+
+  .cta-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px}
+  .btn{display:inline-flex;align-items:center;height:36px;border-radius:12px;
+    font-size:14px;font-weight:500;text-decoration:none;font-family:var(--sans)}
+  .btn-primary{background:var(--purple-800);color:#E0E3F0;border:1px solid var(--purple-900);
+    padding:0 13px 0 18px;box-shadow:0 6px 12px rgba(87,91,123,.24);gap:8px}
+  .btn-primary:hover{background:var(--purple);border-color:var(--purple);color:#fff;
+    box-shadow:0 2px 4px rgba(0,0,0,.15)}
+  .btn-secondary{background:#E0E3F0;color:var(--purple);padding:0 18px}
+  .btn-secondary:hover{background:#E8EAF0;color:#5123CE}
+
+  h2{margin:64px 0 0;font-size:24px;font-weight:300;color:var(--ink)}
+  h2+p{margin-top:12px;color:var(--ink-2);max-width:64ch}
+
+  ol.steps{list-style:none;margin:24px 0 0;display:grid;gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  ol.steps li{background:var(--card);padding:18px 22px;display:grid;
+    grid-template-columns:48px 1fr;gap:16px;align-items:baseline}
+  ol.steps b{font-family:var(--mono);font-weight:400;font-size:20px;color:#5123CE}
+  ol.steps span{color:var(--ink-2)}
+  ol.steps span strong{color:var(--ink);font-weight:500}
+  code{font-family:var(--mono);font-size:.88em;background:#F0F1F4;
+    border:1px solid var(--rule);border-radius:4px;padding:1px 5px;color:var(--ink)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+    gap:12px;margin-top:24px}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .tile b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+    color:var(--purple);font-weight:400}
+  .tile span{display:block;margin-top:6px;font-size:14px;color:var(--ink-2)}
+
+  .note{margin-top:24px;background:var(--card);border:1px solid var(--line);
+    border-left:2px solid var(--purple);border-radius:0 12px 12px 0;padding:20px 24px}
+  .note h3{font-size:16px;font-weight:500;margin-bottom:8px}
+  .note p{color:var(--ink-2);max-width:64ch}
+  .note p+p{margin-top:10px}
+
+  footer{margin-top:72px;padding-top:24px;border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:8px 28px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink-3)}
+  footer a{color:var(--ink-2)}
+  a{color:var(--purple)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="eyebrow">
+    <svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><polygon points="4,0 8,2.25 8,6.75 4,9 0,6.75 0,2.25" fill="currentColor"/></svg>
+    For the sales team
+  </span>
+
+  <h1><span class="light">Make a DFNS slide</span><br><span class="emphasis">without a designer.</span></h1>
+
+  <p class="lede">A pack you hand to ChatGPT, Gemini or Claude. You describe the slide,
+  it returns a 1920&nbsp;×&nbsp;1080 JPG that is exactly on brand — the same type, the
+  same colours and the same layouts as the company deck.</p>
+
+  <div class="cta-row">
+    <a class="btn btn-primary" href="dfns-slide-skill.zip" download>Download the pack
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a class="btn btn-secondary" href="SKILL.md">Read the instructions</a>
+  </div>
+
+  <h2>Three steps</h2>
+  <ol class="steps">
+    <li><b>01</b><span>Upload <code>dfns-slide-skill.zip</code> to your AI of choice and
+      tell it to <strong>unzip it and read SKILL.md</strong>.</span></li>
+    <li><b>02</b><span>Say what the slide has to argue, and to whom.
+      <strong>One slide carries one idea</strong> — if you need two, ask for two slides.</span></li>
+    <li><b>03</b><span>It returns the JPG, plus an <code>.svg</code> beside it.
+      The SVG is the editable source: come back to us with it rather than pasting over the image.</span></li>
+  </ol>
+
+  <h2>What it can make</h2>
+  <p>Eleven layouts, each lifted from a real slide in the company deck.</p>
+  <div class="grid">
+    <div class="tile"><b>cards-row</b><span>3–5 parallel points</span></div>
+    <div class="tile"><b>cards-2x2</b><span>Four points, two rows</span></div>
+    <div class="tile"><b>columns-ruled</b><span>A definition in facets</span></div>
+    <div class="tile"><b>numbered-cards</b><span>A journey, stage by stage</span></div>
+    <div class="tile"><b>numbered-rows</b><span>Controls, each with its proof</span></div>
+    <div class="tile"><b>text-table</b><span>A comparison, row by row</span></div>
+    <div class="tile"><b>icon-list</b><span>A capability, feature by feature</span></div>
+    <div class="tile"><b>kpi-row</b><span>The numbers themselves</span></div>
+    <div class="tile"><b>contrast-list</b><span>Old world against new</span></div>
+    <div class="tile"><b>statement</b><span>One line, full stop</span></div>
+    <div class="tile"><b>opening</b><span>Cover and section dividers</span></div>
+  </div>
+
+  <h2>Two things to know before you use it</h2>
+
+  <div class="note">
+    <h3>It will not invent a number, and it will tell you so</h3>
+    <p>Every figure comes from one dated file. Ask for a slide about pricing, or for a
+    metric nobody has signed off, and the slide comes back with a visible
+    <code>⟦FACT NEEDED⟧</code> marker instead of a plausible figure.</p>
+    <p>That is deliberate. A hole you can see is recoverable; a confident wrong number
+    in front of a client is not. <strong>Pricing and legal disclaimers are not in the
+    file yet</strong> — expect the marker on those subjects and come to the brand team.</p>
+  </div>
+
+  <div class="note">
+    <h3>A JPG is frozen the day it is made</h3>
+    <p>Every figure on it was true on the date stamped in the footer, and nowhere else.
+    If you build a deck now and present it in three months, check the numbers again
+    before you do.</p>
+    <p>If one is wrong, <strong>don't fix it in your slide</strong> — tell us, we fix it
+    at the source, and it becomes right in everyone's deck.</p>
+  </div>
+
+  <h2>Checking a deck you already have</h2>
+  <p>The same pack audits existing decks for terminology, unsourced claims, banned
+  words and figures that do not match the record. Paste the deck's text and ask it to
+  run the audit — <a href="CHECK.md">CHECK.md</a> has the procedure.</p>
+
+  <footer>
+    <span>DFNS Design System</span>
+    <span>Pack v2026.09.21</span>
+    <span><a href="SKILL.md">SKILL.md</a></span>
+    <span><a href="CHECK.md">CHECK.md</a></span>
+    <span><a href="TESTING.md">TESTING.md</a></span>
+  </footer>
+
+</div>
+</body>
+</html>

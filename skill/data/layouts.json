@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "name": "DFNS Slide Layouts",
+    "version": "2026.09.20",
+    "source": "Figma 📚 MASTER LIBRARY — page Company Deck, measured 2026-09-20",
+    "canonApplied": true,
+    "note": "Geometry only. Type roles and colors resolve against tokens.json. Coordinates are absolute on the 1920 x 1080 canvas unless marked relative."
+  },
+
+  "grammar": {
+    "slots": ["chrome", "header", "body", "strip"],
+    "rule": "chrome and header are fixed furniture. A generator composes the body archetype and picks a strip variant.",
+    "chrome": "always; see tokens.json chrome",
+    "header": "always on content slides; replaced by the opening header on cover and dividers",
+    "strip": "optional"
+  },
+
+  "header": {
+    "content": {
+      "origin": { "x": 80, "y": 150 },
+      "direction": "column",
+      "gap": 10,
+      "children": [
+        { "role": "eyebrow", "style": "eyebrow", "optional": false,
+          "alt": { "role": "eyebrowChip", "layout": { "direction": "row", "padding": [20, 0], "height": 72, "gap": 10, "icon": [33, 36] }, "style": "eyebrowChip" } },
+        { "role": "h1", "layout": { "direction": "row", "gap": 11 },
+          "segments": [
+            { "style": "h1Light", "carries": "the premise" },
+            { "style": "h1Emphasis", "carries": "the claim" }
+          ] },
+        { "role": "lead", "style": "lead", "maxWidth": 1760, "optional": true, "maxLines": 3 }
+      ]
+    },
+    "opening": {
+      "use": "cover and section dividers — one layout, two contents",
+      "ground": "opening",
+      "origin": { "x": 80, "y": 618 },
+      "direction": "column",
+      "gap": 13,
+      "children": [
+        { "role": "eyebrow", "style": "eyebrowOpening", "example": "OVERVIEW DECK · 2026" },
+        { "role": "title", "layout": { "direction": "column", "gap": 6 },
+          "segments": [
+            { "style": "openingLight", "carries": "cover: the subject · divider: the section number" },
+            { "style": "openingEmphasis", "carries": "cover: the claim · divider: the section name" }
+          ] }
+      ]
+    }
+  },
+
+  "archetypes": {
+    "cards-row": {
+      "capacity": { "min": 3, "max": 5 },
+      "container": { "x": 80, "width": 1760, "direction": "row", "gap": 20, "align": "stretch", "offsetBelowHeader": 100 },
+      "item": {
+        "direction": "column", "padding": [22, 24], "gap": 8,
+        "fill": "#FFFFFF", "border": "card", "radius": "card", "shadow": "card",
+        "children": [
+          { "role": "icon", "size": 40, "family": "heroicons-solid" },
+          { "role": "title", "style": "cardTitle", "maxLines": 2 },
+          { "role": "body", "style": "body", "maxLines": 5 }
+        ]
+      }
+    },
+
+    "cards-2x2": {
+      "capacity": { "min": 4, "max": 4 },
+      "container": { "x": 80, "y": 422, "width": 1760, "direction": "column", "gap": 30,
+                     "row": { "direction": "row", "gap": 40 } },
+      "item": {
+        "direction": "column", "padding": [40, 40], "gap": 12,
+        "fill": "#FFFFFF", "border": "card", "radius": "card",
+        "children": [
+          { "role": "icon", "size": 40, "family": "heroicons-solid", "optional": true },
+          { "role": "title", "style": "cardTitleLarge" },
+          { "role": "body", "style": "body", "maxLines": 4 }
+        ]
+      }
+    },
+
+    "columns-ruled": {
+      "capacity": { "min": 3, "max": 4 },
+      "container": { "x": 80, "y": 387, "direction": "row", "align": "center", "gap": 12 },
+      "item": {
+        "direction": "column", "padding": [28, 24], "gap": 24, "radius": "panel",
+        "fill": null, "border": null, "width": [417, 435],
+        "children": [
+          { "role": "titleRow", "direction": "row", "align": "center", "gap": 12,
+            "children": [
+              { "role": "iconTile", "size": 40, "padding": 8, "fill": "#E0E3F0", "radius": "iconTile", "icon": 24 },
+              { "role": "title", "style": "cardTitleOpen" }
+            ] },
+          { "role": "body", "style": "body", "maxLines": 6 }
+        ]
+      },
+      "separator": { "width": 1, "height": 300, "stroke": "ruleSoft" }
+    },
+
+    "kpi-row": {
+      "capacity": { "min": 4, "max": 6 },
+      "alsoServesAs": "strip",
+      "container": { "x": 80, "y": 755, "width": 1760, "direction": "row", "justify": "center", "align": "center", "gap": 150 },
+      "item": {
+        "direction": "column", "justify": "center",
+        "children": [
+          { "role": "figure", "style": "figure" },
+          { "role": "label", "style": "kpiLabel" }
+        ]
+      }
+    },
+
+    "numbered-rows": {
+      "capacity": { "min": 3, "max": 5 },
+      "container": { "x": 80, "y": 293, "width": 1760, "direction": "column", "gap": 20 },
+      "item": {
+        "direction": "column", "padding": [12, 24], "gap": 10,
+        "fill": "#FFFFFF", "border": "card", "radius": "card", "shadow": "card",
+        "children": [
+          { "role": "headRow", "direction": "row", "align": "center", "gap": 10,
+            "children": [
+              { "role": "number", "style": "figureSmall", "format": "01" },
+              { "role": "title", "style": "cardTitle" }
+            ] },
+          { "role": "body", "style": "body", "maxLines": 2 },
+          { "role": "chip", "variant": "success", "optional": true }
+        ]
+      }
+    },
+
+    "numbered-cards": {
+      "capacity": { "min": 3, "max": 5 },
+      "container": { "x": 80, "y": 312, "width": 1760, "height": 272, "direction": "row", "align": "stretch", "gap": 20 },
+      "taper": {
+        "widths": [400, 368, 336, 304, 272],
+        "note": "Cards narrow left to right. With fewer than 5, take the first N widths and distribute the remainder."
+      },
+      "tintRamp": ["#F4F4F8", "#E8EAF0", "#D7D8E1", "#AEB1C9", "#575C7B"],
+      "item": {
+        "direction": "column", "padding": [22, 24], "gap": 8, "radius": "card",
+        "children": [
+          { "role": "number", "style": "figureSmall", "colorOnDark": "#E6DEFF", "darkFrom": 4 },
+          { "role": "title", "style": "cardTitle", "color": "#363A5B", "colorOnDark": "#FFFFFF", "darkFrom": 5 },
+          { "role": "body", "style": "bodySmall", "color": "#363A5B", "colorOnDark": "#E0E3F0", "darkFrom": 5, "maxLines": 5 }
+        ]
+      },
+      "subBlock": {
+        "optional": true,
+        "container": { "x": 80, "y": 619, "width": 1760, "direction": "column", "gap": 12 },
+        "title": { "style": "sectionTitle" },
+        "row": {
+          "direction": "row", "padding": [16, 16], "align": "center", "gap": 24,
+          "fill": "#F0F1F4", "radius": "panel",
+          "children": [
+            { "role": "tag", "direction": "row", "padding": [5, 10], "gap": 12, "fill": "#FAFAFC", "radius": "iconTile",
+              "children": [ { "role": "icons", "count": 2, "size": 24 }, { "role": "label", "style": "tagLabel" } ] },
+            { "role": "arrow", "glyph": "→", "style": "body" },
+            { "role": "text", "style": "body" }
+          ]
+        }
+      }
+    },
+
+    "text-table": {
+      "capacity": { "min": 4, "max": 8 },
+      "container": { "x": 80, "y": 282, "direction": "column" },
+      "headerRow": {
+        "direction": "row", "padding": [0, 0, 10, 0], "gap": 20,
+        "columns": [
+          { "width": 44, "style": null },
+          { "width": 300, "style": null },
+          { "width": 460, "style": "columnHeader" },
+          { "width": 410, "style": "columnHeader" },
+          { "width": 435, "style": "columnHeaderAccent" }
+        ]
+      },
+      "row": {
+        "direction": "row", "padding": [15, 0], "align": "center", "gap": 20,
+        "borderTop": "card",
+        "columns": [
+          { "role": "number", "width": 44, "style": "figureSmall", "format": "01" },
+          { "role": "title", "width": 300, "style": "rowTitle" },
+          { "role": "colA", "width": 460, "style": "body" },
+          { "role": "colB", "width": 410, "style": "body" },
+          { "role": "colC", "width": 435, "style": "body", "color": "#442599", "size": 22 }
+        ]
+      }
+    },
+
+    "icon-list": {
+      "capacity": { "min": 3, "max": 5 },
+      "pairsWith": "a product visual on the right half",
+      "container": { "x": 80, "y": 338, "width": 813, "direction": "column", "gap": 19 },
+      "item": {
+        "direction": "row", "align": "center", "gap": 26,
+        "children": [
+          { "role": "iconTile", "size": 44, "padding": 10, "fill": "#F0F1F4", "radius": "tile", "icon": 24, "iconColor": "#442599" },
+          { "role": "textCol", "direction": "column", "gap": 11,
+            "children": [
+              { "role": "title", "style": "entryTitle" },
+              { "role": "body", "style": "body", "maxLines": 3 }
+            ] }
+        ]
+      },
+      "separator": { "height": 1, "fill": "#E3E4EB" }
+    },
+
+    "statement": {
+      "capacity": { "min": 1, "max": 1 },
+      "noHeader": true,
+      "container": { "y": 418, "align": "center", "direction": "column", "gap": 10, "centered": true },
+      "segments": [
+        { "style": "statementLight", "carries": "the premise" },
+        { "style": "statementEmphasis", "carries": "the claim" }
+      ],
+      "footnote": {
+        "optional": true, "y": 925, "centered": true,
+        "text": { "style": "footnote" },
+        "link": { "style": "footnoteLink" }
+      },
+      "art": { "asset": "assets/hex-wave-banner.svg", "x": 0, "y": 280, "width": 1920, "height": 454 }
+    },
+
+    "contrast-list": {
+      "capacity": { "min": 3, "max": 5 },
+      "container": {
+        "x": 217, "y": 444, "width": 1486,
+        "direction": "column", "padding": [40, 40], "justify": "center", "align": "center", "gap": 39,
+        "fill": "#F0F1F4", "radius": "tile"
+      },
+      "row": {
+        "direction": "row", "align": "center", "gap": 10, "width": 1341,
+        "children": [
+          { "role": "old", "width": 332, "font": "sans", "weight": 400, "size": 30, "letterSpacing": "-0.01em",
+            "align": "right", "decoration": "line-through", "color": "#AEB1C9" },
+          { "role": "arrow", "glyph": "→", "font": "sans", "weight": 400, "size": 30, "color": "#AEB1C9" },
+          { "role": "new", "font": "sans", "weight": 300, "size": 30, "letterSpacing": "-0.01em", "color": "#442599" }
+        ]
+      }
+    }
+  },
+
+  "strips": {
+    "origin": { "x": 80, "y": 878 },
+    "container": { "direction": "row", "align": "center", "gap": 25 },
+    "variants": {
+      "quote": {
+        "children": [
+          { "role": "rule", "width": 1, "height": 54, "stroke": "#AEB1C9" },
+          { "role": "author", "style": "stripAuthor" },
+          { "role": "box", "fill": "#F4F4F8", "paddingRight": 20, "gap": 20,
+            "children": [
+              { "role": "rule", "width": 1, "height": 54 },
+              { "role": "text", "style": "stripText" }
+            ] }
+        ]
+      },
+      "proof-logos": {
+        "children": [
+          { "role": "rule", "width": 1, "height": 54, "stroke": "#442599" },
+          { "role": "label", "style": "stripLabel", "examples": ["IN PRODUCTION", "IN PROGRESS"] },
+          { "role": "box", "fill": "rgba(230,222,255,0.30)", "paddingRight": 20, "gap": 20,
+            "children": [
+              { "role": "rule", "width": 1, "height": 54 },
+              { "role": "logo", "height": 22 },
+              { "role": "text", "style": "stripText", "color": "#363A5B" }
+            ] }
+        ]
+      },
+      "kpi": { "sameAs": "archetypes.kpi-row" }
+    }
+  },
+
+  "heldBack": {
+    "note": "Real archetypes in the MASTER LIBRARY that v1 does not generate. Each needs an asset or a judgment a salesperson should not make alone. When one is asked for, name the existing slide to reuse and stop.",
+    "archetypes": [
+      "case-study", "industry", "team-grid", "badges-quote", "logo-wall", "bento",
+      "chart-readout", "comparison-matrix", "track-table", "matrix-grid",
+      "layer-stack", "three-zone", "isometric-stack", "quadrant",
+      "stepper-zigzag", "rail-cards", "three-panel-compare"
+    ],
+    "growthRule": "A new archetype enters the set once the same need has come up three times. Adding one means owning it forever."
+  }
+}

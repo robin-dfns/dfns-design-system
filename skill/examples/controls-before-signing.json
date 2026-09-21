@@ -1,0 +1,30 @@
+{
+  "archetype": "numbered-rows",
+  "eyebrow": "Controls that run before signing",
+  "title": [
+    "Compliance already",
+    "in the transaction lifecycle."
+  ],
+  "rows": [
+    {
+      "title": "Stop what shouldn't move",
+      "body": "Sanctions and fraud screening run as a policy condition before signing. A flagged or unauthorized transaction never reaches the chain.",
+      "proof": "Policy engine · Governance engine · KYT screening"
+    },
+    {
+      "title": "AML data in the flow",
+      "body": "Originator and beneficiary data travels inside the payload, per Transfer of Funds Regulation requirements.",
+      "proof": "Travel Rule data screening"
+    },
+    {
+      "title": "Hand an auditor proof",
+      "body": "Every action is written to a tamper-evident, exportable log, and attestation shows the policies you configured ran. Acceptable evidence, not screenshots.",
+      "proof": "Audit Logs · Attestations · Exportable to your SIEM"
+    },
+    {
+      "title": "DORA on resilience and exit",
+      "body": "Active-active continuity, geo-redundancy, self-host data where your regulator requires, and the exit is built in, so you are never locked to a single vendor.",
+      "proof": "On-premise deployments · Code escrow · Backups & DRP"
+    }
+  ]
+}

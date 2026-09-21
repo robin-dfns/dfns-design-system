@@ -1,0 +1,34 @@
+{
+  "archetype": "kpi-row",
+  "eyebrow": "Proven across every segment of finance",
+  "title": [
+    "DFNS is where",
+    "onchain finance runs today"
+  ],
+  "kpis": [
+    {
+      "value": "$200B+",
+      "label": "assets secured"
+    },
+    {
+      "value": "$10B+",
+      "label": "monthly volume"
+    },
+    {
+      "value": "20M+",
+      "label": "wallets"
+    },
+    {
+      "value": "100+",
+      "label": "integrations"
+    },
+    {
+      "value": "0",
+      "label": "breaches"
+    },
+    {
+      "value": "99.997%",
+      "label": "historical uptime"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "archetype": "icon-list",
+  "eyebrow": "Key management",
+  "title": [
+    "Run any key",
+    "anywhere"
+  ],
+  "lead": "Generate, deploy, and operate keys across any environment. MPC, HSM, TEE or offline. Cloud, hybrid, or fully on-premises.",
+  "entries": [
+    {
+      "icon": "lock-closed",
+      "title": "Born distributed, never whole",
+      "body": "With MPC, keys are created as separated shares, from independent entropy, assembled nowhere. No seed phrase, no master secret."
+    },
+    {
+      "icon": "cube",
+      "title": "Every technology, every curve",
+      "body": "MPC, HSM, TEE, offline, combinable in one setup. Every curve (ECDSA, EdDSA, Schnorr, STARK) and derivation (BIP 34, SLIP 10)."
+    },
+    {
+      "icon": "shield-check",
+      "title": "Cryptography we build ourselves",
+      "body": "Our open-source MPC implementations (CGGMP24, FROST) are peer-reviewed and independently audited. Our protocol (KU25) is patent-pending."
+    },
+    {
+      "icon": "arrow-path",
+      "title": "Recovery without trust",
+      "body": "Multi-layered backups, offline storage, third-party DR, and break-glass export via PKCS#11. Your keys outlive your agreement with us."
+    }
+  ]
+}

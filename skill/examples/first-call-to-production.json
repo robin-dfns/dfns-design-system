@@ -1,0 +1,30 @@
+{
+  "archetype": "numbered-cards",
+  "eyebrow": "From first call to production",
+  "title": [
+    "We've done this with banks.",
+    "Here's the route."
+  ],
+  "steps": [
+    {
+      "title": "Explore",
+      "body": "Day 1. Self-serve sandbox, full API, no contract. Engineers build against testnets the afternoon they get access."
+    },
+    {
+      "title": "Evaluate",
+      "body": "The due-diligence pack is ready before you ask: SOC 2 and ISO reports, pentests, docs, pre-completed questionnaires."
+    },
+    {
+      "title": "Pilot",
+      "body": "A scoped slice in production. One use case, real controls, named solutions engineer. Testnet to mainnet under your policies."
+    },
+    {
+      "title": "Go live",
+      "body": "Phased, not big-bang. Policies and quorums configured to your org chart; runbooks delivered; rollout staged by volume."
+    },
+    {
+      "title": "Scale",
+      "body": "Without re-architecture. Add modules, chains, and deployment layers, SaaS to sovereign, on the same unified platform."
+    }
+  ]
+}
