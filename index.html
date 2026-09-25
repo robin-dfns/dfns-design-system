@@ -3882,38 +3882,73 @@ padding:6px 12px;border:1px solid var(--stroke-tertiary);border-radius:999px;bac
       return { s: sc, px: px, py: py, w: w, h: h, spots: spots };
     }
 
+    // Every mark that touches the canvas, one cell of bleed on each side.
+    // patTile describes one period of the lattice; this walks that period over
+    // the canvas, so the layout can never drift between the tile and the render.
+    function patLattice(o, t) {
+      const ox = o.gap / 2, oy = (PAT_MARK_H / PAT_MARK_W) * o.gap / 2;
+      const half = o.layout === 'grid' ? 0 : t.py / 2;
+      const mw = t.s * PAT_MARK_W, mh = t.s * PAT_MARK_H;
+      const i0 = Math.floor((-mw - ox) / t.px) - 1, i1 = Math.ceil((o.W - ox) / t.px) + 1;
+      const j0 = Math.floor((-mh - oy - half) / t.py) - 1, j1 = Math.ceil((o.H - oy) / t.py) + 1;
+      const spots = [];
+      for (let i = i0; i <= i1; i++) {
+        for (let j = j0; j <= j1; j++) {
+          spots.push([i * t.px + ox, j * t.py + (i & 1 ? half : 0) + oy]);
+        }
+      }
+      return spots;
+    }
+
+    // Two ways to lay the marks down, same geometry both times:
+    //   opts.tiled — a <pattern> fill. Compact and resolution-independent, but
+    //     only a browser reads it, so it is for the on-screen preview and for
+    //     rasterising the PNG.
+    //   default — every mark as its own <use>, clipped to the frame. This is the
+    //     downloadable file: Figma drops pattern fills on import and renders the
+    //     background alone, which is why the exported SVG came out empty.
+    // Portability rules for both: xlink:href beside href, because Illustrator
+    // ignores the SVG2-only href and resolves such a <use> to nothing; and pixel
+    // lengths rather than "100%", which importers handle unevenly.
     function patSVG(o, opts) {
       opts = opts || {};
       const t = patTile(o);
-      const uses = t.spots.map(function (p) {
-        return '<use href="#pat-m" transform="translate(' + patRound(p[0]) + ' ' + patRound(p[1]) + ') scale(' + patRound(t.s, 5) + ')"/>';
-      }).join('');
+      const use = function (p) {
+        return '<use href="#pat-m" xlink:href="#pat-m" transform="translate(' + patRound(p[0]) + ' ' + patRound(p[1]) + ') scale(' + patRound(t.s, 5) + ')"/>';
+      };
       const bgDef = PAT_BACKGROUNDS[o.bg] || PAT_BACKGROUNDS.mesh;
       const markD = patMarkD(o);
+      const ns = 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"';
+
+      // CSS tile: one period only, repeated by background-repeat.
+      if (opts.tileOnly) {
+        return '<svg ' + ns + ' width="' + patRound(t.w) + '" height="' + patRound(t.h) + '" viewBox="0 0 ' + patRound(t.w) + ' ' + patRound(t.h) + '">'
+             + '<defs><path id="pat-m" d="' + markD + '"/></defs>'
+             + '<g fill="' + o.mark + '" opacity="' + (o.opacity / 100) + '">' + t.spots.map(use).join('') + '</g></svg>';
+      }
+
       let defs = '<path id="pat-m" d="' + markD + '"/>';
       let back = '';
-      if (bgDef.base) back += '<rect width="100%" height="100%" fill="' + bgDef.base + '"/>';
+      if (bgDef.base) back += '<rect width="' + o.W + '" height="' + o.H + '" fill="' + bgDef.base + '"/>';
       if (bgDef.grad) {
         defs += '<linearGradient id="pat-g" x1="0" y1="0" x2="0" y2="1">'
              +  '<stop offset="0" stop-color="' + bgDef.grad[0] + '" stop-opacity="' + bgDef.grad[1] + '"/>'
              +  '<stop offset="' + bgDef.grad[3] + '" stop-color="' + bgDef.grad[2] + '"/>'
              +  '</linearGradient>';
-        back += '<rect width="100%" height="100%" fill="url(#pat-g)"/>';
+        back += '<rect width="' + o.W + '" height="' + o.H + '" fill="url(#pat-g)"/>';
       }
-      const head = opts.tileOnly
-        ? '<svg xmlns="http://www.w3.org/2000/svg" width="' + patRound(t.w) + '" height="' + patRound(t.h) + '" viewBox="0 0 ' + patRound(t.w) + ' ' + patRound(t.h) + '">'
-        : '<svg xmlns="http://www.w3.org/2000/svg" width="' + o.W + '" height="' + o.H + '" viewBox="0 0 ' + o.W + ' ' + o.H + '">';
-      if (opts.tileOnly) {
-        return head + '<defs>' + '<path id="pat-m" d="' + markD + '"/>' + '</defs>'
-             + '<g fill="' + o.mark + '" opacity="' + (o.opacity / 100) + '">' + uses + '</g></svg>';
+      let marks;
+      if (opts.tiled) {
+        defs += '<pattern id="pat-p" patternUnits="userSpaceOnUse" width="' + patRound(t.w) + '" height="' + patRound(t.h) + '">'
+             +  '<g fill="' + o.mark + '">' + t.spots.map(use).join('') + '</g></pattern>';
+        marks = '<rect width="' + o.W + '" height="' + o.H + '" fill="url(#pat-p)" opacity="' + (o.opacity / 100) + '"/>';
+      } else {
+        defs += '<clipPath id="pat-c"><rect width="' + o.W + '" height="' + o.H + '"/></clipPath>';
+        marks = '<g fill="' + o.mark + '" opacity="' + (o.opacity / 100) + '" clip-path="url(#pat-c)">'
+              + patLattice(o, t).map(use).join('') + '</g>';
       }
-      return head
-        + '<defs>' + defs
-        + '<pattern id="pat-p" patternUnits="userSpaceOnUse" width="' + patRound(t.w) + '" height="' + patRound(t.h) + '">'
-        + '<g fill="' + o.mark + '">' + uses + '</g></pattern></defs>'
-        + back
-        + '<rect width="100%" height="100%" fill="url(#pat-p)" opacity="' + (o.opacity / 100) + '"/>'
-        + '</svg>';
+      return '<svg ' + ns + ' width="' + o.W + '" height="' + o.H + '" viewBox="0 0 ' + o.W + ' ' + o.H + '">'
+        + '<defs>' + defs + '</defs>' + back + marks + '</svg>';
     }
 
     function patRender() {
@@ -3921,7 +3956,7 @@ padding:6px 12px;border:1px solid var(--stroke-tertiary);border-radius:999px;bac
       const prev = document.getElementById('pat-preview');
       if (!prev) return;
       prev.style.aspectRatio = o.W + ' / ' + o.H;
-      prev.innerHTML = patSVG(o);
+      prev.innerHTML = patSVG(o, { tiled: true });
       const svg = prev.querySelector('svg');
       if (svg) { svg.removeAttribute('width'); svg.removeAttribute('height'); svg.style.width = '100%'; svg.style.height = '100%'; svg.style.display = 'block'; }
       const set = function (id, v) { const e = document.getElementById(id); if (e) e.textContent = v; };
@@ -3944,7 +3979,7 @@ padding:6px 12px;border:1px solid var(--stroke-tertiary);border-radius:999px;bac
     }
 
     function patExportPNG(mult) {
-      const o = patState(), src = patSVG(o);
+      const o = patState(), src = patSVG(o, { tiled: true });
       const img = new Image();
       img.onload = function () {
         const c = document.createElement('canvas');
@@ -4019,7 +4054,7 @@ padding:6px 12px;border:1px solid var(--stroke-tertiary);border-radius:999px;bac
                     </div>
                     <button class="pat-btn" id="pat-css-btn" onclick="patCopyCSS()">Copy CSS tile</button>
                   </div>
-                  <p class="pat-note">SVG carries no resolution — scale it freely; the multiplier applies to PNG only. The CSS export ships the tile alone as a data-URI, so a web background stays a few hundred bytes instead of a full render.</p>
+                  <p class="pat-note">SVG carries no resolution — scale it freely; the multiplier applies to PNG only. The download draws every mark as its own shape rather than a repeating fill, so it opens with the motif intact in Figma, Illustrator and Keynote. The CSS export ships the tile alone as a data-URI, so a web background stays a few kilobytes instead of a full render.</p>
                 </div>
               </div>
             </div>
