@@ -3811,13 +3811,64 @@ padding:6px 12px;border:1px solid var(--stroke-tertiary);border-radius:999px;bac
     // (node 619:43): mark 150x131, pitch 151 x 132, half-drop offset 75.5,
     // white at 40% over a white->Steel 200 gradient.
     const PAT_MARK_W = 150, PAT_MARK_H = 131;
-    const PAT_MARK_D = 'M 149.3275472216544 62.90326382652568 L 114.7418043761009 3.103243137311549 C 113.61343765211767 1.1877328278335935 111.58704220960897 0.017466659169054436 109.35654975448216 0 L 40.17629514532053 0 C 38.29568393868181 0.017466659169054436 36.55210925197673 1.0101552222573968 35.6249241450772 2.611265681874994 L 0.695119719681729 62.88288392487905 C -0.24664375519268844 64.50728324169927 -0.2233183664328724 66.48684068473517 0.7155294348465681 68.09377335865342 L 35.26337867287608 127.90834937540039 C 36.39174539685931 129.82385968487836 38.44438350057107 130.99703558612373 40.64571921974811 130.99994669598524 L 109.86387459649333 130.99994669598524 C 111.72990750467231 131.00868002556976 113.45015972225353 129.99852694677318 114.37734482915306 128.40032766371218 L 149.3071531473965 68.12870525633195 C 150.23433825429603 66.53050597327095 150.22850405698523 64.52474960697614 149.30423462368068 62.89161689929868 L 149.3275472216544 62.906173337331815 L 149.3275472216544 62.90326382652568 Z M 124.63761070666357 67.55813019824348 L 101.61251401276961 107.32679864089683 C 100.874847898089 108.60186482205276 99.5336332478548 109.36166981036635 98.05538527538347 109.37913646953541 L 56.740251923170696 109.38786944395504 C 53.59132138192928 109.40824721352784 51.608660834799814 105.96731056060023 53.18604170950035 103.24251176926876 L 74.38592659390842 66.6265714681377 C 75.1381710765639 65.32821642977915 75.11775837224798 63.747485316558034 74.35093545210246 62.4753303119587 L 74.31011616080306 62.48697279718447 L 53.39013816599732 27.84767862372018 C 51.72820268752731 25.122879832388715 53.71378175837257 21.63536853031869 56.91519428529328 21.644101859903216 L 98.0612134248769 21.63828061729033 C 99.52488295985819 21.647013946874857 100.87776037398746 22.424279964316153 101.61834216226303 23.684790540314182 L 124.63761070666357 63.468019863001906 C 125.37819249493914 64.72853043899994 125.37527682134417 66.29179699150717 124.63761070666357 67.5668631726631 L 124.63761070666357 67.55813019824348 Z';
+    // The mark, corners removed: the six vertices of the outer hexagon and the six
+    // of the chevron counter, recovered by intersecting the straight edges of the
+    // source path (assets/logos/logotype-symbol.svg). Storing the bare polygons
+    // rather than a frozen path is what makes the corner radius adjustable — the
+    // source only ever carried one rounding, baked into cubics.
+    // The two wind in opposite directions: that is what cuts the counter out under
+    // fill-rule nonzero, so never re-order either list.
+    const PAT_POLYS = [
+      [[112.947, 0], [37.138, 0], [-0.802, 65.466], [37.049, 131], [112.871, 131], [150.83, 65.501]],
+      [[100.425, 109.379], [49.627, 109.389], [75.572, 64.577], [49.644, 21.645], [100.434, 21.638], [125.821, 65.514]]
+    ];
+    // Rounding the source carries, in mark units. The hexagon rounds harder than
+    // the counter; holding that ratio keeps the mark itself in proportion at every
+    // setting instead of letting the counter catch up and close the chevron.
+    const PAT_R_NATIVE = 5.55, PAT_R_INNER = 4.08 / 5.55;
+    // The control reads as a percentage of mark width, so the native rounding
+    // lands on 3.7 — the one setting that reproduces the logotype exactly.
+    const PAT_R_DEFAULT = Math.round(PAT_R_NATIVE / PAT_MARK_W * 1000) / 10;
 
-    // The mark is a compound path: the outer hexagon, then the chevron subtracted
-    // from it. Cutting at the second "M" drops that second subpath, leaving the
-    // bare hexagon — the same silhouette, no counter.
-    const PAT_HEX_D = PAT_MARK_D.slice(0, PAT_MARK_D.indexOf('Z M ') + 1);
-    function patMarkD(o) { return o.hex ? PAT_HEX_D : PAT_MARK_D; }
+    // Trim d back from each vertex along both edges, then join the two tangent
+    // points with a circular arc. d is capped at half the shorter edge so
+    // neighbouring corners can never eat into each other, and the radius is read
+    // back from the capped trim — which is why the counter's 60 degree notches
+    // stop rounding long before the hexagon's 120 degree corners do.
+    function patRoundPoly(pts, r) {
+      const n = pts.length, c = [];
+      for (let i = 0; i < n; i++) {
+        const V = pts[i], P = pts[(i + n - 1) % n], N = pts[(i + 1) % n];
+        const lp = Math.hypot(P[0] - V[0], P[1] - V[1]), ln = Math.hypot(N[0] - V[0], N[1] - V[1]);
+        const up = [(P[0] - V[0]) / lp, (P[1] - V[1]) / lp], un = [(N[0] - V[0]) / ln, (N[1] - V[1]) / ln];
+        const half = Math.acos(Math.max(-1, Math.min(1, up[0] * un[0] + up[1] * un[1]))) / 2;
+        const tan = Math.tan(half);
+        const d = Math.min(r / tan, lp / 2, ln / 2);
+        // Turn direction decides which way the arc bends; reading it per corner
+        // keeps both windings correct without hard-coding either.
+        const cw = (V[0] - P[0]) * (N[1] - V[1]) - (V[1] - P[1]) * (N[0] - V[0]) > 0 ? 1 : 0;
+        c.push({
+          t1: [V[0] + up[0] * d, V[1] + up[1] * d],
+          t2: [V[0] + un[0] * d, V[1] + un[1] * d],
+          r: d * tan, cw: cw
+        });
+      }
+      const xy = function (p) { return patRound(p[0], 3) + ' ' + patRound(p[1], 3); };
+      const arc = function (k) {
+        return k.r < 0.002 ? '' : ' A ' + patRound(k.r, 3) + ' ' + patRound(k.r, 3) + ' 0 0 ' + k.cw + ' ' + xy(k.t2);
+      };
+      let d = 'M ' + xy(c[0].t2);
+      for (let i = 1; i <= n; i++) { const k = c[i % n]; d += ' L ' + xy(k.t1) + arc(k); }
+      return d + ' Z';
+    }
+
+    // One compound path: the hexagon, then the counter unless it is switched off.
+    function patMarkD(o) {
+      const r = (o.round / 100) * PAT_MARK_W;
+      let d = patRoundPoly(PAT_POLYS[0], r);
+      if (!o.hex) d += ' ' + patRoundPoly(PAT_POLYS[1], r * PAT_R_INNER);
+      return d;
+    }
 
     const PAT_BACKGROUNDS = {
       mesh:   { label: 'Mesh gradient (source)', base: '#F0F1F4', grad: ['#FFFFFF', 0.5, '#E8EAF0', 0.876] },
@@ -3846,6 +3897,7 @@ padding:6px 12px;border:1px solid var(--stroke-tertiary);border-radius:999px;bac
         gap: +(g('pat-gap') ? g('pat-gap').value : 10),
         layout: g('pat-layout') ? g('pat-layout').value : 'hive',
         hex: g('pat-hex') ? g('pat-hex').checked : false,
+        round: +(g('pat-round') ? g('pat-round').value : PAT_R_DEFAULT),
         mark: '#FFFFFF',
         opacity: +(g('pat-op') ? g('pat-op').value : 40),
         bg: g('pat-bg') ? g('pat-bg').value : 'mesh',
@@ -3962,6 +4014,7 @@ padding:6px 12px;border:1px solid var(--stroke-tertiary);border-radius:999px;bac
       const set = function (id, v) { const e = document.getElementById(id); if (e) e.textContent = v; };
       set('pat-cell-v', o.cell + ' px');
       set('pat-gap-v', o.gap + ' px');
+      set('pat-round-v', patRound(o.round, 1) + ' %');
       set('pat-op-v', o.opacity + ' %');
       set('pat-readout', 'tile ' + patRound(t.w) + ' × ' + patRound(t.h) + ' px  ·  pitch ' + patRound(t.px) + ' × ' + patRound(t.py) + '  ·  canvas ' + o.W + ' × ' + o.H);
     }
@@ -4012,7 +4065,7 @@ padding:6px 12px;border:1px solid var(--stroke-tertiary);border-radius:999px;bac
     let patInited = false;
     function initPattern() {
       if (patInited) return; patInited = true;
-      ['pat-cell', 'pat-gap', 'pat-layout', 'pat-hex', 'pat-op', 'pat-bg', 'pat-canvas'].forEach(function (id) {
+      ['pat-cell', 'pat-gap', 'pat-round', 'pat-layout', 'pat-hex', 'pat-op', 'pat-bg', 'pat-canvas'].forEach(function (id) {
         const e = document.getElementById(id);
         if (e) e.addEventListener('input', patRender);
       });
@@ -4027,7 +4080,7 @@ padding:6px 12px;border:1px solid var(--stroke-tertiary);border-radius:999px;bac
                 <span class="color-family-name">Logo Pattern</span>
                 <span class="color-family-count" id="pat-readout"></span>
               </div>
-              <p class="section-desc" style="margin-top:-8px">A honeycomb of the DFNS symbol, tessellated so the cells interlock like a hive. The gap is the cell wall — at zero the hexagons merge into a flat field and only the chevrons read, so leave it open. Density and framing are independent — the tile sets how large the mark reads, the canvas sets the crop — so one source serves a favicon-sized texture and a print backdrop alike.</p>
+              <p class="section-desc" style="margin-top:-8px">A honeycomb of the DFNS symbol, tessellated so the cells interlock like a hive. The gap is the cell wall — at zero the hexagons merge into a flat field and only the chevrons read, so leave it open. Density and framing are independent — the tile sets how large the mark reads, the canvas sets the crop — so one source serves a favicon-sized texture and a print backdrop alike. Corner radius opens at the rounding the logotype itself carries; past roughly 12 percent the chevron stops reading as the mark, so keep the high settings for the hexagon-only field.</p>
               <div class="pat-wrap">
                 <div class="pat-stage"><div id="pat-preview" class="pat-preview"></div></div>
                 <div class="pat-controls">
@@ -4035,6 +4088,8 @@ padding:6px 12px;border:1px solid var(--stroke-tertiary);border-radius:999px;bac
                     <input type="range" id="pat-cell" min="24" max="480" step="2" value="150"></label>
                   <label class="pat-ctl"><span>Gap <b id="pat-gap-v"></b></span>
                     <input type="range" id="pat-gap" min="0" max="80" step="1" value="10"></label>
+                  <label class="pat-ctl"><span>Corner radius <b id="pat-round-v"></b></span>
+                    <input type="range" id="pat-round" min="0" max="44" step="0.1" value="${PAT_R_DEFAULT}"></label>
                   <label class="pat-ctl"><span>Layout</span>
                     <select id="pat-layout">${opt('hive', 'Honeycomb', true)}${opt('grid', 'Aligned grid')}</select></label>
                   <label class="pat-switch"><span>Hexagon only</span>
